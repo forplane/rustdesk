@@ -21,8 +21,8 @@ class ServerPage extends StatefulWidget implements PageShape {
   @override
   final icon = const Icon(Icons.mobile_screen_share);
 
-  @override
-  final appBarActions = [
+  // @override
+  final appBarActions11 = [
     PopupMenuButton<String>(
         tooltip: "",
         icon: const Icon(Icons.more_vert),
@@ -355,20 +355,20 @@ class _PermissionCheckerState extends State<PermissionChecker> {
           PermissionRow(translate("Screen Capture"), serverModel.mediaOk,
               serverModel.toggleService),
           PermissionRow(translate("Input Control"), serverModel.inputOk,
-              serverModel.toggleInput),
-          PermissionRow(translate("Transfer File"), serverModel.fileOk,
-              serverModel.toggleFile),
-          hasAudioPermission
-              ? PermissionRow(translate("Audio Capture"), serverModel.audioOk,
-                  serverModel.toggleAudio)
-              : Row(children: [
-                  Icon(Icons.info_outline).marginOnly(right: 15),
-                  Expanded(
-                      child: Text(
-                    translate("android_version_audio_tip"),
-                    style: const TextStyle(color: MyTheme.darkGray),
-                  ))
-                ])
+              serverModel.toggleInput)
+          // PermissionRow(translate("Transfer File"), serverModel.fileOk,
+          //     serverModel.toggleFile),
+          // hasAudioPermission
+          //     ? PermissionRow(translate("Audio Capture"), serverModel.audioOk,
+          //         serverModel.toggleAudio)
+          //     : Row(children: [
+          //         Icon(Icons.info_outline).marginOnly(right: 15),
+          //         Expanded(
+          //             child: Text(
+          //           translate("android_version_audio_tip"),
+          //           style: const TextStyle(color: MyTheme.darkGray),
+          //         ))
+          //       ])
         ]));
   }
 }
@@ -432,44 +432,43 @@ class ConnectionManager extends StatelessWidget {
                                       client.unreadChatMessageCount)))
                     ],
                   ),
-                  client.authorized
-                      ? const SizedBox.shrink()
-                      : Text(
-                          translate("android_new_connection_tip"),
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ).marginOnly(bottom: 5),
-                  client.authorized
-                      ? Container(
-                          alignment: Alignment.centerRight,
-                          child: ElevatedButton.icon(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStatePropertyAll(Colors.red)),
-                              icon: const Icon(Icons.close),
-                              onPressed: () {
-                                bind.cmCloseConnection(connId: client.id);
-                                gFFI.invokeMethod(
-                                    "cancel_notification", client.id);
-                              },
-                              label: Text(translate("Disconnect"))))
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                              TextButton(
-                                  child: Text(translate("Dismiss")),
-                                  onPressed: () {
-                                    serverModel.sendLoginResponse(
-                                        client, false);
-                                  }).marginOnly(right: 15),
-                              if (serverModel.approveMode != 'password')
-                                ElevatedButton.icon(
-                                    icon: const Icon(Icons.check),
-                                    label: Text(translate("Accept")),
-                                    onPressed: () {
-                                      serverModel.sendLoginResponse(
-                                          client, true);
-                                    }),
-                            ]),
+                  // client.authorized
+                  //     ? const SizedBox.shrink()
+                  //     : Text(
+                  //         translate("android_new_connection_tip"),
+                  //         style: Theme.of(context).textTheme.bodyMedium,
+                  //       ).marginOnly(bottom: 5),
+                  // client.authorized
+                  //     ? Container(
+                  //         alignment: Alignment.centerRight,
+                  //         child: ElevatedButton.icon(
+                  //             style: ButtonStyle(
+                  //                 backgroundColor:
+                  //                     MaterialStatePropertyAll(Colors.red)),
+                  //             icon: const Icon(Icons.close),
+                  //             onPressed: () {
+                  //               bind.cmCloseConnection(connId: client.id);
+                  //               gFFI.invokeMethod(
+                  //                   "cancel_notification", client.id);
+                  //             },
+                  //             label: Text(translate("Disconnect"))))
+                  //     : Row(mainAxisAlignment: MainAxisAlignment.end,
+                  //         children: [
+                  //             TextButton(
+                  //                 child: Text(translate("Dismiss")),
+                  //                 onPressed: () {
+                  //                   serverModel.sendLoginResponse(
+                  //                       client, false);
+                  //                 }).marginOnly(right: 15),
+                  //             if (serverModel.approveMode != 'password')
+                  //               ElevatedButton.icon(
+                  //                   icon: const Icon(Icons.check),
+                  //                   label: Text(translate("Accept")),
+                  //                   onPressed: () {
+                  //                     serverModel.sendLoginResponse(
+                  //                         client, true);
+                  //                   }),
+                  //           ]),
                 ])))
             .toList());
   }

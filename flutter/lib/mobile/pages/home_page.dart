@@ -43,9 +43,12 @@ class _HomePageState extends State<HomePage> {
 
   void initPages() {
     _pages.clear();
-    _pages.add(ConnectionPage());
+	// 连接
+    //_pages.add(ConnectionPage());
     if (isAndroid) {
-      _pages.addAll([ChatPage(type: ChatPageType.mobileMain), ServerPage()]);
+		// 聊天消息、共享屏幕
+      // _pages.addAll([ChatPage(type: ChatPageType.mobileMain), ServerPage()]);
+      _pages.addAll([ServerPage()]);
     }
     _pages.add(SettingsPage());
   }
