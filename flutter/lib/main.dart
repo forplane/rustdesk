@@ -387,7 +387,7 @@ class _AppState extends State<App> {
         child: GetMaterialApp(
           navigatorKey: globalKey,
           debugShowCheckedModeBanner: false,
-          title: 'RustDesk',
+          title: '叮客云协助',
           theme: MyTheme.lightTheme,
           darkTheme: MyTheme.darkTheme,
           themeMode: MyTheme.currentThemeMode(),
