@@ -21,8 +21,8 @@ class ServerPage extends StatefulWidget implements PageShape {
   @override
   final icon = const Icon(Icons.mobile_screen_share);
 
-  // @override
-  final appBarActions11 = [
+  @override
+  final appBarActions = [
     PopupMenuButton<String>(
         tooltip: "",
         icon: const Icon(Icons.more_vert),
