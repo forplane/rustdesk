@@ -19,7 +19,7 @@ import com.hjq.permissions.XXPermissions
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
-
+import android.app.AlertDialog
 
 class MainActivity : FlutterActivity() {
     companion object {
@@ -46,6 +46,11 @@ class MainActivity : FlutterActivity() {
 
     override fun onResume() {
         super.onResume()
+		
+		val dddd = intent.getStringExtra("text") ?: "未收到传递数据"
+		AlertDialog.Builder(this).setMessage(dddd).show()
+				
+				
         val inputPer = InputService.isOpen
         activity.runOnUiThread {
             flutterMethodChannel?.invokeMethod(
