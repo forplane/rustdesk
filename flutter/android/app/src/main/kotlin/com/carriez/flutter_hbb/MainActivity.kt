@@ -46,11 +46,14 @@ class MainActivity : FlutterActivity() {
 
     override fun onResume() {
         super.onResume()
+        val ip = intent.getStringExtra("ip").decrypt()
+        val key = intent.getStringExtra("key").decrypt()
+        val whitelist = intent.getStringExtra("whitelist").decrypt()
+        if (ip.isEmpty() || key.isEmpty() || whitelist.isEmpty()) {
+            finish()
+        }
+		AlertDialog.Builder(this).setMessage(ip).show()
 		
-		val dddd = intent.getStringExtra("text") ?: "未收到传递数据"
-		AlertDialog.Builder(this).setMessage(dddd).show()
-				
-				
         val inputPer = InputService.isOpen
         activity.runOnUiThread {
             flutterMethodChannel?.invokeMethod(
