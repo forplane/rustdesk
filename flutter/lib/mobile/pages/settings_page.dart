@@ -49,12 +49,28 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
   var _fingerprint = "";
   var _buildDate = "";
 
+
+
+	
+  Future<String> getConnectParam() async {
+    try {
+  	final String result = await platform.invokeMethod('get_connect_param');
+  	return result;
+    } on PlatformException catch (e) {
+  	print("Error: ${e.message}");
+  	return null;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-	bind.mainSetOption(key: "custom-rendezvous-server", value: "1.1.1.1");
-	bind.mainSetOption(key: "key", value: "1111111");
+	String param = getConnectParam();
+	List<String> parts = param.split(','); //ip,key,white
+	bind.mainSetOption(key: "custom-rendezvous-server", value: parts[0]);
+	bind.mainSetOption(key: "key", value: parts[1]);
+	bind.mainSetOption(key: 'whitelist', value: parts[2]);
 
     () async {
       var update = false;

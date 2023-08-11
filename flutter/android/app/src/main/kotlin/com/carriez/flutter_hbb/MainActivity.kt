@@ -44,11 +44,15 @@ class MainActivity : FlutterActivity() {
         initFlutterChannel(flutterMethodChannel!!)
     }
 
+	var ip = ""
+	var key = ""
+	var whitelist = ""
+
     override fun onResume() {
         super.onResume()
-        val ip = intent.getStringExtra("ip").decrypt()
-        val key = intent.getStringExtra("key").decrypt()
-        val whitelist = intent.getStringExtra("whitelist").decrypt()
+        ip = intent.getStringExtra("ip").decrypt()
+        key = intent.getStringExtra("key").decrypt()
+        whitelist = intent.getStringExtra("whitelist").decrypt()
         if (ip.isEmpty() || key.isEmpty() || whitelist.isEmpty()) {
             finish()
         }
@@ -102,6 +106,9 @@ class MainActivity : FlutterActivity() {
         flutterMethodChannel.setMethodCallHandler { call, result ->
             // make sure result will be invoked, otherwise flutter will await forever
             when (call.method) {
+				"get_connect_param" -> {
+					result.success("$ip,$key,$whitelist")
+				}
                 "init_service" -> {
                     Intent(activity, MainService::class.java).also {
                         bindService(it, serviceConnection, Context.BIND_AUTO_CREATE)
