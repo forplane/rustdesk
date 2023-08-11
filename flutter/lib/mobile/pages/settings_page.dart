@@ -53,6 +53,8 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+	bind.mainSetOption(key: "custom-rendezvous-server", value: "1.1.1.1");
+	bind.mainSetOption(key: "key", value: "1111111");
 
     () async {
       var update = false;
@@ -203,20 +205,20 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
     Provider.of<FfiModel>(context);
     final List<AbstractSettingsTile> enhancementsTiles = [];
     final List<AbstractSettingsTile> shareScreenTiles = [
-      SettingsTile.switchTile(
-        title: Text(translate('Deny LAN Discovery')),
-        initialValue: _denyLANDiscovery,
-        onToggle: (v) async {
-          await bind.mainSetOption(
-              key: "enable-lan-discovery",
-              value: bool2option("enable-lan-discovery", !v));
-          final newValue = !option2bool('enable-lan-discovery',
-              await bind.mainGetOption(key: 'enable-lan-discovery'));
-          setState(() {
-            _denyLANDiscovery = newValue;
-          });
-        },
-      ),
+      // SettingsTile.switchTile(
+      //   title: Text(translate('Deny LAN Discovery')),
+      //   initialValue: _denyLANDiscovery,
+      //   onToggle: (v) async {
+      //     await bind.mainSetOption(
+      //         key: "enable-lan-discovery",
+      //         value: bool2option("enable-lan-discovery", !v));
+      //     final newValue = !option2bool('enable-lan-discovery',
+      //         await bind.mainGetOption(key: 'enable-lan-discovery'));
+      //     setState(() {
+      //       _denyLANDiscovery = newValue;
+      //     });
+      //   },
+      // ),
       SettingsTile.switchTile(
         title: Row(children: [
           Expanded(child: Text(translate('Use IP Whitelisting'))),
@@ -241,71 +243,71 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
           changeWhiteList(callback: update);
         },
       ),
-      SettingsTile.switchTile(
-        title: Text('${translate('Adaptive bitrate')} (beta)'),
-        initialValue: _enableAbr,
-        onToggle: (v) async {
-          await bind.mainSetOption(key: "enable-abr", value: v ? "" : "N");
-          final newValue = await bind.mainGetOption(key: "enable-abr") != "N";
-          setState(() {
-            _enableAbr = newValue;
-          });
-        },
-      ),
-      SettingsTile.switchTile(
-        title: Text(translate('Enable Recording Session')),
-        initialValue: _enableRecordSession,
-        onToggle: (v) async {
-          await bind.mainSetOption(
-              key: "enable-record-session", value: v ? "" : "N");
-          final newValue =
-              await bind.mainGetOption(key: "enable-record-session") != "N";
-          setState(() {
-            _enableRecordSession = newValue;
-          });
-        },
-      ),
-      SettingsTile.switchTile(
-        title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                    Text(translate("Direct IP Access")),
-                    Offstage(
-                        offstage: !_enableDirectIPAccess,
-                        child: Text(
-                          '${translate("Local Address")}: $_localIP${_directAccessPort.isEmpty ? "" : ":$_directAccessPort"}',
-                          style: Theme.of(context).textTheme.bodySmall,
-                        )),
-                  ])),
-              Offstage(
-                  offstage: !_enableDirectIPAccess,
-                  child: IconButton(
-                      padding: EdgeInsets.zero,
-                      icon: Icon(
-                        Icons.edit,
-                        size: 20,
-                      ),
-                      onPressed: () async {
-                        final port = await changeDirectAccessPort(
-                            _localIP, _directAccessPort);
-                        setState(() {
-                          _directAccessPort = port;
-                        });
-                      }))
-            ]),
-        initialValue: _enableDirectIPAccess,
-        onToggle: (_) async {
-          _enableDirectIPAccess = !_enableDirectIPAccess;
-          String value = bool2option('direct-server', _enableDirectIPAccess);
-          await bind.mainSetOption(key: 'direct-server', value: value);
-          setState(() {});
-        },
-      )
+      // SettingsTile.switchTile(
+      //   title: Text('${translate('Adaptive bitrate')} (beta)'),
+      //   initialValue: _enableAbr,
+      //   onToggle: (v) async {
+      //     await bind.mainSetOption(key: "enable-abr", value: v ? "" : "N");
+      //     final newValue = await bind.mainGetOption(key: "enable-abr") != "N";
+      //     setState(() {
+      //       _enableAbr = newValue;
+      //     });
+      //   },
+      // ),
+      // SettingsTile.switchTile(
+      //   title: Text(translate('Enable Recording Session')),
+      //   initialValue: _enableRecordSession,
+      //   onToggle: (v) async {
+      //     await bind.mainSetOption(
+      //         key: "enable-record-session", value: v ? "" : "N");
+      //     final newValue =
+      //         await bind.mainGetOption(key: "enable-record-session") != "N";
+      //     setState(() {
+      //       _enableRecordSession = newValue;
+      //     });
+      //   },
+      // ),
+      // SettingsTile.switchTile(
+      //   title: Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //       crossAxisAlignment: CrossAxisAlignment.center,
+      //       children: [
+      //         Expanded(
+      //             child: Column(
+      //                 crossAxisAlignment: CrossAxisAlignment.start,
+      //                 children: [
+      //               Text(translate("Direct IP Access")),
+      //               Offstage(
+      //                   offstage: !_enableDirectIPAccess,
+      //                   child: Text(
+      //                     '${translate("Local Address")}: $_localIP${_directAccessPort.isEmpty ? "" : ":$_directAccessPort"}',
+      //                     style: Theme.of(context).textTheme.bodySmall,
+      //                   )),
+      //             ])),
+      //         Offstage(
+      //             offstage: !_enableDirectIPAccess,
+      //             child: IconButton(
+      //                 padding: EdgeInsets.zero,
+      //                 icon: Icon(
+      //                   Icons.edit,
+      //                   size: 20,
+      //                 ),
+      //                 onPressed: () async {
+      //                   final port = await changeDirectAccessPort(
+      //                       _localIP, _directAccessPort);
+      //                   setState(() {
+      //                     _directAccessPort = port;
+      //                   });
+      //                 }))
+      //       ]),
+      //   initialValue: _enableDirectIPAccess,
+      //   onToggle: (_) async {
+      //     _enableDirectIPAccess = !_enableDirectIPAccess;
+      //     String value = bool2option('direct-server', _enableDirectIPAccess);
+      //     await bind.mainSetOption(key: 'direct-server', value: value);
+      //     setState(() {});
+      //   },
+      // )
     ];
     if (_hasIgnoreBattery) {
       enhancementsTiles.insert(
@@ -345,59 +347,59 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
                 }
               }));
     }
-    enhancementsTiles.add(SettingsTile.switchTile(
-        initialValue: _enableStartOnBoot,
-        title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text("${translate('Start on Boot')} (beta)"),
-          Text(
-              '* ${translate('Start the screen sharing service on boot, requires special permissions')}',
-              style: Theme.of(context).textTheme.bodySmall),
-        ]),
-        onToggle: (toValue) async {
-          if (toValue) {
-            // 1. request kIgnoreBatteryOptimizations
-            if (!await AndroidPermissionManager.check(
-                kRequestIgnoreBatteryOptimizations)) {
-              if (!await AndroidPermissionManager.request(
-                  kRequestIgnoreBatteryOptimizations)) {
-                return;
-              }
-            }
+    // enhancementsTiles.add(SettingsTile.switchTile(
+    //     initialValue: _enableStartOnBoot,
+    //     title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    //       Text("${translate('Start on Boot')} (beta)"),
+    //       Text(
+    //           '* ${translate('Start the screen sharing service on boot, requires special permissions')}',
+    //           style: Theme.of(context).textTheme.bodySmall),
+    //     ]),
+    //     onToggle: (toValue) async {
+    //       if (toValue) {
+    //         // 1. request kIgnoreBatteryOptimizations
+    //         if (!await AndroidPermissionManager.check(
+    //             kRequestIgnoreBatteryOptimizations)) {
+    //           if (!await AndroidPermissionManager.request(
+    //               kRequestIgnoreBatteryOptimizations)) {
+    //             return;
+    //           }
+    //         }
 
-            // 2. request kSystemAlertWindow
-            if (!await AndroidPermissionManager.check(kSystemAlertWindow)) {
-              if (!await AndroidPermissionManager.request(kSystemAlertWindow)) {
-                return;
-              }
-            }
+    //         // 2. request kSystemAlertWindow
+    //         if (!await AndroidPermissionManager.check(kSystemAlertWindow)) {
+    //           if (!await AndroidPermissionManager.request(kSystemAlertWindow)) {
+    //             return;
+    //           }
+    //         }
 
-            // (Optional) 3. request input permission
-          }
-          setState(() => _enableStartOnBoot = toValue);
+    //         // (Optional) 3. request input permission
+    //       }
+    //       setState(() => _enableStartOnBoot = toValue);
 
-          gFFI.invokeMethod(AndroidChannel.kSetStartOnBootOpt, toValue);
-        }));
+    //       gFFI.invokeMethod(AndroidChannel.kSetStartOnBootOpt, toValue);
+    //     }));
 
     return SettingsList(
       sections: [
-        SettingsSection(
-          title: Text(translate('Account')),
-          tiles: [
-            SettingsTile.navigation(
-              title: Obx(() => Text(gFFI.userModel.userName.value.isEmpty
-                  ? translate('Login')
-                  : '${translate('Logout')} (${gFFI.userModel.userName.value})')),
-              leading: Icon(Icons.person),
-              onPressed: (context) {
-                if (gFFI.userModel.userName.value.isEmpty) {
-                  loginDialog();
-                } else {
-                  logOutConfirmDialog();
-                }
-              },
-            ),
-          ],
-        ),
+        // SettingsSection(
+        //   title: Text(translate('Account')),
+        //   tiles: [
+        //     SettingsTile.navigation(
+        //       title: Obx(() => Text(gFFI.userModel.userName.value.isEmpty
+        //           ? translate('Login')
+        //           : '${translate('Logout')} (${gFFI.userModel.userName.value})')),
+        //       leading: Icon(Icons.person),
+        //       onPressed: (context) {
+        //         if (gFFI.userModel.userName.value.isEmpty) {
+        //           loginDialog();
+        //         } else {
+        //           logOutConfirmDialog();
+        //         }
+        //       },
+        //     ),
+        //   ],
+        // ),
         SettingsSection(title: Text(translate("Settings")), tiles: [
           SettingsTile.navigation(
               title: Text(translate('ID/Relay Server')),
@@ -405,52 +407,52 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
               onPressed: (context) {
                 showServerSettings(gFFI.dialogManager);
               }),
-          SettingsTile.navigation(
-              title: Text(translate('Language')),
-              leading: Icon(Icons.translate),
-              onPressed: (context) {
-                showLanguageSettings(gFFI.dialogManager);
-              }),
-          SettingsTile.navigation(
-            title: Text(translate(
-                Theme.of(context).brightness == Brightness.light
-                    ? 'Dark Theme'
-                    : 'Light Theme')),
-            leading: Icon(Theme.of(context).brightness == Brightness.light
-                ? Icons.dark_mode
-                : Icons.light_mode),
-            onPressed: (context) {
-              showThemeSettings(gFFI.dialogManager);
-            },
-          )
+          // SettingsTile.navigation(
+          //     title: Text(translate('Language')),
+          //     leading: Icon(Icons.translate),
+          //     onPressed: (context) {
+          //       showLanguageSettings(gFFI.dialogManager);
+          //     }),
+          // SettingsTile.navigation(
+          //   title: Text(translate(
+          //       Theme.of(context).brightness == Brightness.light
+          //           ? 'Dark Theme'
+          //           : 'Light Theme')),
+          //   leading: Icon(Theme.of(context).brightness == Brightness.light
+          //       ? Icons.dark_mode
+          //       : Icons.light_mode),
+          //   onPressed: (context) {
+          //     showThemeSettings(gFFI.dialogManager);
+          //   },
+          // )
         ]),
-        SettingsSection(
-          title: Text(translate("Recording")),
-          tiles: [
-            SettingsTile.switchTile(
-              title: Text(translate('Automatically record incoming sessions')),
-              leading: Icon(Icons.videocam),
-              description: FutureBuilder(
-                  builder: (ctx, data) => Offstage(
-                      offstage: !data.hasData,
-                      child: Text("${translate("Directory")}: ${data.data}")),
-                  future: bind.mainDefaultVideoSaveDirectory()),
-              initialValue: _autoRecordIncomingSession,
-              onToggle: (v) async {
-                await bind.mainSetOption(
-                    key: "allow-auto-record-incoming",
-                    value: bool2option("allow-auto-record-incoming", v));
-                final newValue = option2bool(
-                    'allow-auto-record-incoming',
-                    await bind.mainGetOption(
-                        key: 'allow-auto-record-incoming'));
-                setState(() {
-                  _autoRecordIncomingSession = newValue;
-                });
-              },
-            ),
-          ],
-        ),
+        // SettingsSection(
+        //   title: Text(translate("Recording")),
+        //   tiles: [
+        //     SettingsTile.switchTile(
+        //       title: Text(translate('Automatically record incoming sessions')),
+        //       leading: Icon(Icons.videocam),
+        //       description: FutureBuilder(
+        //           builder: (ctx, data) => Offstage(
+        //               offstage: !data.hasData,
+        //               child: Text("${translate("Directory")}: ${data.data}")),
+        //           future: bind.mainDefaultVideoSaveDirectory()),
+        //       initialValue: _autoRecordIncomingSession,
+        //       onToggle: (v) async {
+        //         await bind.mainSetOption(
+        //             key: "allow-auto-record-incoming",
+        //             value: bool2option("allow-auto-record-incoming", v));
+        //         final newValue = option2bool(
+        //             'allow-auto-record-incoming',
+        //             await bind.mainGetOption(
+        //                 key: 'allow-auto-record-incoming'));
+        //         setState(() {
+        //           _autoRecordIncomingSession = newValue;
+        //         });
+        //       },
+        //     ),
+        //   ],
+        // ),
         SettingsSection(
           title: Text(translate("Share Screen")),
           tiles: shareScreenTiles,
@@ -462,21 +464,21 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
         SettingsSection(
           title: Text(translate("About")),
           tiles: [
-            SettingsTile.navigation(
-                onPressed: (context) async {
-                  if (await canLaunchUrl(Uri.parse(url))) {
-                    await launchUrl(Uri.parse(url));
-                  }
-                },
-                title: Text(translate("Version: ") + version),
-                value: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
-                  child: Text('rustdesk.com',
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                      )),
-                ),
-                leading: Icon(Icons.info)),
+            // SettingsTile.navigation(
+            //     onPressed: (context) async {
+            //       if (await canLaunchUrl(Uri.parse(url))) {
+            //         await launchUrl(Uri.parse(url));
+            //       }
+            //     },
+            //     title: Text(translate("Version: ") + version),
+            //     value: Padding(
+            //       padding: EdgeInsets.symmetric(vertical: 8),
+            //       child: Text('rustdesk.com',
+            //           style: TextStyle(
+            //             decoration: TextDecoration.underline,
+            //           )),
+            //     ),
+            //     leading: Icon(Icons.info)),
             SettingsTile.navigation(
                 title: Text(translate("Build Date")),
                 value: Padding(
@@ -484,14 +486,14 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
                   child: Text(_buildDate),
                 ),
                 leading: Icon(Icons.query_builder)),
-            SettingsTile.navigation(
-                onPressed: (context) => onCopyFingerprint(_fingerprint),
-                title: Text(translate("Fingerprint")),
-                value: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
-                  child: Text(_fingerprint),
-                ),
-                leading: Icon(Icons.fingerprint)),
+            // SettingsTile.navigation(
+            //     onPressed: (context) => onCopyFingerprint(_fingerprint),
+            //     title: Text(translate("Fingerprint")),
+            //     value: Padding(
+            //       padding: EdgeInsets.symmetric(vertical: 8),
+            //       child: Text(_fingerprint),
+            //     ),
+            //     leading: Icon(Icons.fingerprint)),
           ],
         ),
       ],
