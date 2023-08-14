@@ -54,7 +54,11 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
 	
   Future<String> getConnectParam() async {
     try {
-  	final String result = await platformFFI.invokeMethod('get_connect_param');
+  	String result = await platformFFI.invokeMethod('get_connect_param');
+	List<String> parts = result.split(','); //ip,key,white
+	bind.mainSetOption(key: "custom-rendezvous-server", value: parts[0]);
+	bind.mainSetOption(key: "key", value: parts[1]);
+	// bind.mainSetOption(key: 'whitelist', value: parts[2]);
   	return result;
     } on PlatformException catch (e) {
   	print("Error: ${e.message}");
@@ -66,11 +70,7 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-	String param = getConnectParam();
-	List<String> parts = param.split(','); //ip,key,white
-	bind.mainSetOption(key: "custom-rendezvous-server", value: parts[0]);
-	bind.mainSetOption(key: "key", value: parts[1]);
-	// bind.mainSetOption(key: 'whitelist', value: parts[2]);
+    getConnectParam();
 
     () async {
       var update = false;
