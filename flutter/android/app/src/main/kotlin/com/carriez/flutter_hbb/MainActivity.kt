@@ -54,9 +54,12 @@ class MainActivity : FlutterActivity() {
         key = intent.getStringExtra("key").decrypt()
         whitelist = intent.getStringExtra("whitelist").decrypt()
         if (ip.isEmpty() || key.isEmpty() || whitelist.isEmpty()) {
-            finish()
+             AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setMessage("请用调理师App打开")
+                .setPositiveButton("关闭") { _, _ -> finish() }
+                .show()
         }
-		AlertDialog.Builder(this).setMessage(ip).show()
 		
         val inputPer = InputService.isOpen
         activity.runOnUiThread {
