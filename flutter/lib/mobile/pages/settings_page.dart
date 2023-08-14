@@ -54,7 +54,7 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
 	
   Future<String> getConnectParam() async {
     try {
-  	final String result = await gFFI.invokeMethod('get_connect_param');
+  	final String result = await platformFFI.invokeMethod('get_connect_param');
   	return result;
     } on PlatformException catch (e) {
   	print("Error: ${e.message}");
