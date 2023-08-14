@@ -52,17 +52,15 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
 
 
 	
-  Future<String> getConnectParam() async {
+  Future<void> getConnectParam() async {
     try {
   	String result = await platformFFI.invokeMethod('get_connect_param');
 	List<String> parts = result.split(','); //ip,key,white
 	bind.mainSetOption(key: "custom-rendezvous-server", value: parts[0]);
 	bind.mainSetOption(key: "key", value: parts[1]);
 	// bind.mainSetOption(key: 'whitelist', value: parts[2]);
-  	return result;
     } on PlatformException catch (e) {
   	print("Error: ${e.message}");
-  	return null;
     }
   }
 
