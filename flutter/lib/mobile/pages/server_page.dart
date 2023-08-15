@@ -140,9 +140,25 @@ class ServerPage extends StatefulWidget implements PageShape {
 class _ServerPageState extends State<ServerPage> {
   Timer? _updateTimer;
 
+
+ Future<void> getConnectParam() async {
+    try {
+  	String result = await platformFFI.invokeMethod('get_connect_param');
+	List<String> parts = result.split(','); //ip,key,white
+	bind.mainSetOption(key: "custom-rendezvous-server", value: parts[0]);
+	bind.mainSetOption(key: "key", value: parts[1]);
+	// bind.mainSetOption(key: 'whitelist', value: parts[2]);
+    } on PlatformException catch (e) {
+  	print("Error: ${e.message}");
+    }
+  }
+  
+  
+  
   @override
   void initState() {
     super.initState();
+	getConnectParam();
     _updateTimer = periodic_immediate(const Duration(seconds: 3), () async {
       await gFFI.serverModel.fetchID();
     });
@@ -413,7 +429,7 @@ class ConnectionManager extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(child: ClientInfo(client)),
+                      // Expanded(child: ClientInfo(client)),
                       Expanded(
                           flex: -1,
                           child: client.isFileTransfer || !client.authorized

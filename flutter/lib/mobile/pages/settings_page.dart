@@ -68,7 +68,6 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    getConnectParam();
 
     () async {
       var update = false;
@@ -233,30 +232,30 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
       //     });
       //   },
       // ),
-      SettingsTile.switchTile(
-        title: Row(children: [
-          Expanded(child: Text(translate('Use IP Whitelisting'))),
-          Offstage(
-                  offstage: !_onlyWhiteList,
-                  child: const Icon(Icons.warning_amber_rounded,
-                      color: Color.fromARGB(255, 255, 204, 0)))
-              .marginOnly(left: 5)
-        ]),
-        initialValue: _onlyWhiteList,
-        onToggle: (_) async {
-          update() async {
-            final onlyWhiteList =
-                (await bind.mainGetOption(key: 'whitelist')).isNotEmpty;
-            if (onlyWhiteList != _onlyWhiteList) {
-              setState(() {
-                _onlyWhiteList = onlyWhiteList;
-              });
-            }
-          }
+      // SettingsTile.switchTile(
+      //   title: Row(children: [
+      //     Expanded(child: Text(translate('Use IP Whitelisting'))),
+      //     Offstage(
+      //             offstage: !_onlyWhiteList,
+      //             child: const Icon(Icons.warning_amber_rounded,
+      //                 color: Color.fromARGB(255, 255, 204, 0)))
+      //         .marginOnly(left: 5)
+      //   ]),
+      //   initialValue: _onlyWhiteList,
+      //   onToggle: (_) async {
+      //     update() async {
+      //       final onlyWhiteList =
+      //           (await bind.mainGetOption(key: 'whitelist')).isNotEmpty;
+      //       if (onlyWhiteList != _onlyWhiteList) {
+      //         setState(() {
+      //           _onlyWhiteList = onlyWhiteList;
+      //         });
+      //       }
+      //     }
 
-          changeWhiteList(callback: update);
-        },
-      ),
+      //     changeWhiteList(callback: update);
+      //   },
+      // ),
       // SettingsTile.switchTile(
       //   title: Text('${translate('Adaptive bitrate')} (beta)'),
       //   initialValue: _enableAbr,
@@ -414,13 +413,13 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
         //     ),
         //   ],
         // ),
-        SettingsSection(title: Text(translate("Settings")), tiles: [
-          SettingsTile.navigation(
-              title: Text(translate('ID/Relay Server')),
-              leading: Icon(Icons.cloud),
-              onPressed: (context) {
-                showServerSettings(gFFI.dialogManager);
-              }),
+        // SettingsSection(title: Text(translate("Settings")), tiles: [
+        //   SettingsTile.navigation(
+        //       title: Text(translate('ID/Relay Server')),
+        //       leading: Icon(Icons.cloud),
+        //       onPressed: (context) {
+        //         showServerSettings(gFFI.dialogManager);
+        //       }),
           // SettingsTile.navigation(
           //     title: Text(translate('Language')),
           //     leading: Icon(Icons.translate),
@@ -467,10 +466,10 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
         //     ),
         //   ],
         // ),
-        SettingsSection(
-          title: Text(translate("Share Screen")),
-          tiles: shareScreenTiles,
-        ),
+        // SettingsSection(
+        //   title: Text(translate("Share Screen")),
+        //   tiles: shareScreenTiles,
+        // ),
         SettingsSection(
           title: Text(translate("Enhancements")),
           tiles: enhancementsTiles,
