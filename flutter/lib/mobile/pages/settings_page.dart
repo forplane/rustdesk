@@ -438,7 +438,7 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
           //     showThemeSettings(gFFI.dialogManager);
           //   },
           // )
-        ]),
+        // ]),
         // SettingsSection(
         //   title: Text(translate("Recording")),
         //   tiles: [
