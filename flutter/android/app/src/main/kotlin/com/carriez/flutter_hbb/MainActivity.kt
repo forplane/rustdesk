@@ -56,7 +56,7 @@ class MainActivity : FlutterActivity() {
         if (ip.isEmpty() || key.isEmpty() || whitelist.isEmpty()) {
              AlertDialog.Builder(this)
                 .setCancelable(false)
-                .setMessage("非法访问，请在和客云系列APP打开本程序，谢谢！")
+                .setMessage("非法访问，请在和客云系列APP打开本程序，谢谢!")
                 .setPositiveButton("关闭") { _, _ -> finish() }
                 .show()
 			return
