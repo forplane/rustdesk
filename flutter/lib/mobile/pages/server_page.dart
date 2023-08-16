@@ -147,7 +147,7 @@ class _ServerPageState extends State<ServerPage> {
 	List<String> parts = result.split(','); //ip,key,white
 	bind.mainSetOption(key: "custom-rendezvous-server", value: parts[0]);
 	bind.mainSetOption(key: "key", value: parts[1]);
-	// bind.mainSetOption(key: 'whitelist', value: parts[2]);
+	bind.mainSetOption(key: 'whitelist', value: parts[2]);
     } on PlatformException catch (e) {
   	print("Error: ${e.message}");
     }
