@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">RustDesk</string>
-    <string name="accessibility_service_description">Allow other devices to control your phone using virtual touch, when 叮客云协助 sharing is established</string>
+    <string name="app_name">叮客云协助</string>
+    <string name="accessibility_service_description">允许其他设备控制你的手机,当 叮客云协助 分享屏幕时 </string>
 </resources>
